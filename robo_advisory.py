@@ -9,6 +9,8 @@ import requests
 import json
 import datetime as datetime
 
+def to_usd(my_price):
+    return "${0:,.2f}".format(my_price)
 
 
 # using JSON not CSV
@@ -21,6 +23,8 @@ response = requests.get(request_url)
 parsed_response = json.loads(response.text)
 
 last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
+latest_close = parsed_response["Time Series (Daily)"]["2019-02-20"]["4. close"]
+
 
 # breakpoint()
 
@@ -40,9 +44,10 @@ print("CRUNCHING THE DATA...")
 
 print("-----------------------")
 print(f"LATEST DAY: {last_refreshed}")
-print("LATEST CLOSING PRICE: $1,259.19")
+print(f"LATEST CLOSING PRICE: {to_usd(float(latest_close))}")
 print("RECENT HIGH: ______")
 print("RECENT LOW: ______")
 
 # ... etc.
+
 
