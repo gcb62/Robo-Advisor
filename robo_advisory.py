@@ -56,14 +56,23 @@ now = datetime.datetime.now()
 
 csv_file_path = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv")
 
+csv_headers = ["timestamp", "open", "high", "low", "close", "volume"]
 
 with open(csv_file_path, "w") as csv_file: # "w" means "open the file for writing"
-    writer = csv.DictWriter(csv_file, fieldnames=["city", "name"])
+    writer = csv.DictWriter(csv_file, fieldnames=csv_headers)
     writer.writeheader() # uses fieldnames set above
-    writer.writerow({"city": "New York", "name": "Yankees"})
-    writer.writerow({"city": "New York", "name": "Mets"})
-    writer.writerow({"city": "Boston", "name": "Red Sox"})
-    writer.writerow({"city": "New Haven", "name": "Ravens"})
+
+
+
+    writer.writerow({
+        "timestamp": "TD",
+        "open": "TD",
+        "high": "TD",
+        "low": "TD",
+        "close": "TD",
+        "volume": "TD"
+    })
+
 
 
 
@@ -90,5 +99,6 @@ print("-----------------------")
 print(f"Writing Data to CSV: {csv_file_path}...")
 print("-----------------------")
 print("Good luck!")
+
 
 
