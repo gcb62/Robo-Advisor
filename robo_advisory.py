@@ -33,12 +33,16 @@ latest_day = dates[0]
 latest_close = time_series[latest_day]["4. close"]
 
 high_prices = []
+low_prices = []
 
 for date in dates:
     high_price = time_series[date]["2. high"]
     high_prices.append(float(high_price))
+    low_price = time_series[date]["3. low"]
+    low_prices.append(float(low_price))
 
 recent_high = max(high_prices)
+recent_low = min(low_prices)
 
 now = datetime.datetime.now()
 
@@ -59,7 +63,7 @@ print("-----------------------")
 print(f"LATEST DAY: {last_refreshed}")
 print(f"LATEST CLOSING PRICE: {to_usd(float(latest_close))}")
 print(f"RECENT HIGH: {to_usd(float(recent_high))}")
-print("RECENT LOW: ______")
+print(f"RECENT LOW: {to_usd(float(recent_low))}")
 
 # ... etc.
 
