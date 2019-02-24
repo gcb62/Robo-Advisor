@@ -32,7 +32,15 @@ latest_day = dates[0]
 
 latest_close = time_series[latest_day]["4. close"]
 
+high_prices = []
 
+for date in dates:
+    high_price = time_series[date]["2. high"]
+    high_prices.append(float(high_price))
+
+recent_high = max(high_prices)
+
+now = datetime.datetime.now()
 
 #outputs below
 
@@ -40,7 +48,7 @@ print("-----------------------")
 print("STOCK SYMBOL: AMZN")
 print("-----------------------")
 
-now = datetime.datetime.now()
+
 
 print("REQUESTING STOCK MARKET DATA...")
 print("REQUEST AT: " + now.strftime("%Y-%m-%d %H:%M:%S"))
@@ -50,7 +58,7 @@ print("CRUNCHING THE DATA...")
 print("-----------------------")
 print(f"LATEST DAY: {last_refreshed}")
 print(f"LATEST CLOSING PRICE: {to_usd(float(latest_close))}")
-print("RECENT HIGH: ______")
+print(f"RECENT HIGH: {to_usd(float(recent_high))}")
 print("RECENT LOW: ______")
 
 # ... etc.
