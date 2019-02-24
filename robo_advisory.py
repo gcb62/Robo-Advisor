@@ -7,6 +7,9 @@
 
 import requests
 import json
+import datetime as datetime
+
+
 
 # using JSON not CSV
 request_url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo"
@@ -27,8 +30,11 @@ last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
 print("-----------------------")
 print("STOCK SYMBOL: AMZN")
 print("-----------------------")
+
+now = datetime.datetime.now()
+
 print("REQUESTING STOCK MARKET DATA...")
-print("REQUEST AT: __________")
+print("REQUEST AT: " + now.strftime("%Y-%m-%d %H:%M:%S"))
 print("-----------------------")
 print("CRUNCHING THE DATA...")
 
