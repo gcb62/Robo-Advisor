@@ -16,17 +16,22 @@ def to_usd(my_price):
 # using JSON not CSV
 request_url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo"
 response = requests.get(request_url)
-# print(type(response))
-# print(response.status_code)
-# print(response.text)
+
 
 parsed_response = json.loads(response.text)
 
 last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
-latest_close = parsed_response["Time Series (Daily)"]["2019-02-20"]["4. close"]
-
 
 # breakpoint()
+
+time_series = parsed_response["Time Series (Daily)"]
+
+dates = list(time_series.keys()) # assume days are in descending order
+
+latest_day = dates[0]
+
+latest_close = time_series[latest_day]["4. close"]
+
 
 
 #outputs below
@@ -49,5 +54,4 @@ print("RECENT HIGH: ______")
 print("RECENT LOW: ______")
 
 # ... etc.
-
 
