@@ -17,19 +17,26 @@ response = requests.get(request_url)
 
 parsed_response = json.loads(response.text)
 
+last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
 
-breakpoint()
+# breakpoint()
 
 
 #outputs below
 
 print("-----------------------")
 print("STOCK SYMBOL: AMZN")
-
+print("-----------------------")
+print("REQUESTING STOCK MARKET DATA...")
+print("REQUEST AT: __________")
 print("-----------------------")
 print("CRUNCHING THE DATA...")
 
 print("-----------------------")
+print(f"LATEST DAY: {last_refreshed}")
 print("LATEST CLOSING PRICE: $1,259.19")
+print("RECENT HIGH: ______")
+print("RECENT LOW: ______")
 
 # ... etc.
+
