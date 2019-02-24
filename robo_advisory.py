@@ -5,8 +5,12 @@
 
 #formulate inputs
 
-import requests
+import csv
 import json
+import os
+
+import requests
+
 import datetime as datetime
 
 def to_usd(my_price):
@@ -48,6 +52,21 @@ now = datetime.datetime.now()
 
 #outputs below
 
+# csv_file_path = "data/prices.csv" # a relative filepath
+
+csv_file_path = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv")
+
+
+with open(csv_file_path, "w") as csv_file: # "w" means "open the file for writing"
+    writer = csv.DictWriter(csv_file, fieldnames=["city", "name"])
+    writer.writeheader() # uses fieldnames set above
+    writer.writerow({"city": "New York", "name": "Yankees"})
+    writer.writerow({"city": "New York", "name": "Mets"})
+    writer.writerow({"city": "Boston", "name": "Red Sox"})
+    writer.writerow({"city": "New Haven", "name": "Ravens"})
+
+
+
 print("-----------------------")
 print("STOCK SYMBOL: AMZN")
 print("-----------------------")
@@ -64,6 +83,12 @@ print(f"LATEST DAY: {last_refreshed}")
 print(f"LATEST CLOSING PRICE: {to_usd(float(latest_close))}")
 print(f"RECENT HIGH: {to_usd(float(recent_high))}")
 print(f"RECENT LOW: {to_usd(float(recent_low))}")
+print("-----------------------")
+print("YOU SHOULD: ___")
+print("Because: ___")
+print("-----------------------")
+print(f"Writing Data to CSV: {csv_file_path}...")
+print("-----------------------")
+print("Good luck!")
 
-# ... etc.
 
