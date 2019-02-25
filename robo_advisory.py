@@ -8,6 +8,8 @@
 import csv
 import json
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 import requests
 
@@ -18,7 +20,11 @@ def to_usd(my_price):
 
 
 # using JSON not CSV
-request_url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo"
+api_key = os.environ.get("ALPHAVANTAGE_API_KEY")
+print(api_key)
+
+symbol = "MSFT"
+request_url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey={symbol}"
 response = requests.get(request_url)
 
 
@@ -82,12 +88,12 @@ print("-----------------------")
 
 
 print("REQUESTING STOCK MARKET DATA...")
-print("REQUEST AT: " + now.strftime("%Y-%m-%d %H:%M:%S"))
+print("YOU REQUESTED YOUR DATA AT: " + now.strftime("%Y-%m-%d %H:%M:%S"))
 print("-----------------------")
 print("CRUNCHING THE DATA...")
 
 print("-----------------------")
-print(f"LATEST DAY: {last_refreshed}")
+print(f"THE LATEST TRADING DAY: {last_refreshed}")
 print(f"LATEST CLOSING PRICE: {to_usd(float(latest_close))}")
 print(f"RECENT HIGH: {to_usd(float(recent_high))}")
 print(f"RECENT LOW: {to_usd(float(recent_low))}")
@@ -98,5 +104,6 @@ print("-----------------------")
 print(f"Writing Data to CSV: {csv_file_path}...")
 print("-----------------------")
 print("Good luck!")
+
 
 
