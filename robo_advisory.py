@@ -11,6 +11,7 @@ load_dotenv()
 import requests
 
 import datetime as datetime
+now = datetime.datetime.now()
 
 def to_usd(my_price):
     return "${0:,.2f}".format(my_price)
@@ -26,7 +27,7 @@ print("DISCLAIMER: BRENNAN INVESTMENTS IS NOT LIABLE FOR THE LOSS THAT PERTAINS 
 print("----------------")
 
 while True:
-	stock_ticker = input("Enter name of stock you want: ")
+	stock_ticker = input("Enter the ticker of a stock you want to research: ")
 	if not stock_ticker.isalpha():
 		print("Please make sure to enter name of stock price")
 	else:
@@ -77,7 +78,7 @@ recent_low = min(low_prices)
 mean_close = sum(close_prices)/len(close_prices)
 # s/o to @chenm1997 for help with the mean close
 
-now = datetime.datetime.now()
+
 
 #outputs below
 
@@ -107,12 +108,8 @@ with open(csv_file_path, "w") as csv_file: # "w" means "open the file for writin
 print("-----------------------")
 print("STOCK SYMBOL: " + stock_ticker)
 print("-----------------------")
-
-
-
 print("REQUESTING STOCK MARKET DATA...")
-print("YOU REQUESTED YOUR DATA AT: " + now.strftime("%Y-%m-%d %H:%M:%S"))
-print(f"LAST REFRESHED: {last_refreshed}")
+print("YOU REQUESTED YOUR DATA AT: " + (now.strftime("%I:%M %p") + " ON " + (now.strftime("%Y-%m-%d"))))
 print("-----------------------")
 print("CRUNCHING THE DATA...")
 
