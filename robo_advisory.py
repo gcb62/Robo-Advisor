@@ -20,6 +20,11 @@ def to_usd(my_price):
 api_key = str(os.environ.get("ALPHAVANTAGE_API_KEY"))
 # print(api_key)
 
+print("----------------")
+print("THANK YOU FOR CHOOSING BRENNAN INVESTMENTS")
+print("DISCLAIMER: BRENNAN INVESTMENTS IS NOT LIABLE FOR THE LOSS THAT PERTAINS TO ANY OF OUR ADVISORY SERVICES")
+print("----------------")
+
 while True:
 	stock_ticker = input("Enter name of stock you want: ")
 	if not stock_ticker.isalpha():
@@ -64,10 +69,13 @@ for date in dates:
     high_prices.append(float(high_price))
     low_price = time_series[date]["3. low"]
     low_prices.append(float(low_price))
+    close_price = time_series[date]["4. close"]
+    close_prices.append(float(close_price))
 
 recent_high = max(high_prices)
 recent_low = min(low_prices)
-
+mean_close = sum(close_prices)/len(close_prices)
+# s/o to @chenm1997 for help with the mean close
 
 now = datetime.datetime.now()
 
@@ -110,15 +118,23 @@ print("CRUNCHING THE DATA...")
 
 print("-----------------------")
 print(f"THE LATEST TRADING DAY: {last_refreshed}")
-print(f"LATEST CLOSING PRICE: {to_usd(float(latest_close))}")
 print(f"RECENT HIGH: {to_usd(float(recent_high))}")
 print(f"RECENT LOW: {to_usd(float(recent_low))}")
+print(f"LATEST CLOSING PRICE: {to_usd(float(latest_close))}")
+print(f"RECENT AVERAGE: {to_usd(float(mean_close))}")
 print("-----------------------")
-print("YOU SHOULD: ___")
-print("Because: ___")
+
+if float(mean_close)>float(latest_close): 
+    print("BRENNAN RECCOMMENDS YOU: BUY")
+    print ("BRENNAN'S CALCULATIONS CONCLUDE THAT YOU SHOULD BUY THIS STOCK BECAUSE ITS CLOSING PRICE IS LOWER THAN THE RECENT AVERAGE")
+else:
+    print("BRENNAN RECCOMMENDS YOU: DO NOT BUY")
+    print ("BRENNAN'S CALCULATIONS CONCLUDE THAT YOU SHOULD NOT BUY THIS STOCK BECAUSE ITS CLOSING PRICE IS HIGHER THAN THE RECENT AVERAGE. THIS COULD POSE BOTH SHORT-TERM AND LONG-TERM CONSEQUENCES")
+
 print("-----------------------")
-print(f"Writing Data to CSV: {csv_file_path}...")
+print("Always remember in the stock market that for every buyer, there is a seller")
 print("-----------------------")
-print("Good luck!")
+print("Good luck and happy investing!")
 
 
+# print(f"Writing Data to CSV: {csv_file_path}...")
