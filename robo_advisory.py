@@ -1,8 +1,5 @@
 # Robo_Advisor.py
 
-# TODO: import some modules and/or packages here
-# TODO: write some Python code here to produce the desired functionality...
-
 #formulate inputs
 
 import csv
@@ -20,11 +17,27 @@ def to_usd(my_price):
 
 
 # using JSON not CSV
-api_key = os.environ.get("ALPHAVANTAGE_API_KEY")
-print(api_key)
+api_key = str(os.environ.get("ALPHAVANTAGE_API_KEY"))
+# print(api_key)
+
+while True:
+	stock_ticker = input("Enter name of stock you want: ")
+	if not stock_ticker.isalpha():
+		print("Please make sure to enter name of stock price")
+	else:
+		data = requests.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + stock_ticker + "&apikey=" + api_key)
+
+		if "Error" in data.text:
+			print("The stock you are looking for is not here")
+		else:
+			break
+
+# thanks for that Hiep
 
 symbol = "MSFT"
-request_url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey={symbol}"
+# request_url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey={symbol}"
+request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + stock_ticker + "&apikey=" + api_key
+
 response = requests.get(request_url)
 
 
@@ -44,6 +57,7 @@ latest_close = time_series[latest_day]["4. close"]
 
 high_prices = []
 low_prices = []
+close_prices = []
 
 for date in dates:
     high_price = time_series[date]["2. high"]
@@ -53,6 +67,7 @@ for date in dates:
 
 recent_high = max(high_prices)
 recent_low = min(low_prices)
+
 
 now = datetime.datetime.now()
 
@@ -82,13 +97,14 @@ with open(csv_file_path, "w") as csv_file: # "w" means "open the file for writin
 
 
 print("-----------------------")
-print("STOCK SYMBOL: AMZN")
+print("STOCK SYMBOL: " + stock_ticker)
 print("-----------------------")
 
 
 
 print("REQUESTING STOCK MARKET DATA...")
 print("YOU REQUESTED YOUR DATA AT: " + now.strftime("%Y-%m-%d %H:%M:%S"))
+print(f"LAST REFRESHED: {last_refreshed}")
 print("-----------------------")
 print("CRUNCHING THE DATA...")
 
@@ -104,6 +120,5 @@ print("-----------------------")
 print(f"Writing Data to CSV: {csv_file_path}...")
 print("-----------------------")
 print("Good luck!")
-
 
 
