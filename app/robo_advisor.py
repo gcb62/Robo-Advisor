@@ -19,9 +19,7 @@ def to_usd(my_price):
 if __name__ == "__main__":
     
 
-    # using JSON not CSV
     api_key = str(os.environ.get("ALPHAVANTAGE_API_KEY"))
-    # print(api_key)
 
     print("----------------")
     print("THANK YOU FOR CHOOSING BRENNAN INVESTMENTS")
@@ -53,7 +51,6 @@ if __name__ == "__main__":
 
     last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
 
-    # breakpoint()
 
     time_series = parsed_response["Time Series (Daily)"]
 
@@ -84,12 +81,11 @@ if __name__ == "__main__":
 
     #outputs below
 
-    # csv_file_path = "data/prices.csv" # a relative filepath
 
     csv_file_path = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv")
 
     csv_headers = ["timestamp", "open", "high", "low", "close", "volume"]
-
+    
     with open(csv_file_path, "w") as csv_file: # "w" means "open the file for writing"
         writer = csv.DictWriter(csv_file, fieldnames=csv_headers)
         writer.writeheader() # uses fieldnames set above
@@ -136,4 +132,3 @@ if __name__ == "__main__":
     print("Good luck and happy investing!")
 
 
-    # print(f"Writing Data to CSV: {csv_file_path}...")
